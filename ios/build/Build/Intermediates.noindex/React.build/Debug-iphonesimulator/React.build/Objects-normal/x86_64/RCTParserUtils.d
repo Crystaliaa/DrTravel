@@ -1,0 +1,7 @@
+dependencies: \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTParserUtils.m \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTParserUtils.h \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/yujisang/DrTravel/node_modules/react-native/React/Base/RCTUtils.h
