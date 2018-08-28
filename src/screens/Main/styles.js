@@ -13,6 +13,14 @@ export default {
     marginTop: deviceHeight / 8,
     marginBottom: 30
   },
+  container: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#FBFAFA',
+  },
   logo: {
     position: "absolute",
     left: Platform.OS === "android" ? 40 : 50,
