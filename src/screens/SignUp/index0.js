@@ -11,27 +11,48 @@ var Gender = t.enums({
     M: '남성',
     F: '여성'
 });
-var User = t.struct({
-    email: t.String,
-    password: t.String,
-    confirmPassword : t.String,
-    surname: t.String,
-    name: t.String,
-    birthdate: t.String,
-    gender: Gender,
+
+var Email = t.refinement(t.String, function(s){
+  return /@/.test(s);
 });
+var Password = t.refinement(t.String, function(s){
+  return s.length >= 8;
+});
+var Name = t.refinement(t.String, function(s){
+  return s.length >= 1;
+});
+var Birthdate = t.refinement(t.String, function(s){
+  return s.length === 8 && /^[0-9]*$/.test(s);
+});
+function samePasswords(x){
+  if(x.password === x.confirmPassword)
+    console.log('비밀번호 같음');
+  return x.password === x.confirmPassword;
+}
+
+var User = t.subtype(t.struct({
+    email: Email,
+    password: Password,
+    confirmPassword : Password,
+    surname: Name,
+    name: Name,
+    birthdate: Birthdate,
+    gender: Gender,
+}), samePasswords);
 type Props = {};
 var defaultOptions = {
     fields:{
         email:{
             label:'이메일',
             placeholder: 'abc@gmail.com',
+            error:'잘못된 이메일입니다.',
             autoFocus:true,
             required:true,
         },
         password:{
             label:'비밀번호',
             placeholder: '8자 이상의 비밀번호를 입력해주세요.',
+            error:'잘못된 비밀번호입니다.',
             password:true,
             secureTextEntry:true,
             required:true,
@@ -39,6 +60,7 @@ var defaultOptions = {
         confirmPassword:{
           label:'비밀번호 확인',
           placeholder: '비밀번호를 한번 더 입력해주세요.',
+          error:'잘못된 비밀번호입니다.',
           password:true,
           secureTextEntry:true,
           required:true,
@@ -56,6 +78,7 @@ var defaultOptions = {
         birthdate:{
             label:'생년월일',
             placeholder: 'YYYYMMDD',
+            error:'잘못된 생년월일입니다.',
             required:true,
         },
         gender:{
@@ -128,7 +151,7 @@ export default class SignUp extends Component {
         confirmPassword.msg = '잘못된 비밀번호입니다.';
       }
     }
-    if (password.flag==0 && confirmPassword.flag == 0 && !(this.state.value.password === this.state.value.confirmPassword))
+    if (password.flag==0 && password.flag == 0 && !samePasswords(this.state.value))
     {
       confirmPassword.flag = true;
       confirmPassword.msg = '비밀번호가 일치하지 않습니다.';
