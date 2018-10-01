@@ -1,3 +1,3 @@
 # DrTravel
-![로그인](./image/Login.jpg)
-![회원가입](./image/Signup.jpg)
+![로그인](./image/Login.JPG)
+![회원가입](./image/signup.JPG)
